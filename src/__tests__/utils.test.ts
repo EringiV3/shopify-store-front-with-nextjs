@@ -1,4 +1,4 @@
-import { hello } from '../utils/sample-data';
+import { hello } from '../utils/helpers';
 
 test('basic', () => {
   expect(hello()).toBe('hello');

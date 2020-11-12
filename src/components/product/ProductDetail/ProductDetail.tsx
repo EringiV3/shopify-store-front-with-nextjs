@@ -1,5 +1,5 @@
 import Grid from '@material-ui/core/Grid';
-import Layout from '@/components/Layout';
+import { Layout } from '@/components/layout';
 import { Product, Sku } from '@/types';
 import Image from 'next/image';
 import { SkuList } from '@/components/product';

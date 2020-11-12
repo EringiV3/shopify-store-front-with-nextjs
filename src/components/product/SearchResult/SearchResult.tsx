@@ -1,4 +1,4 @@
-import Layout from '@/components/Layout';
+import { Layout } from '@/components/layout';
 import { Product } from '@/types';
 import { ProductCard } from '@/components/product';
 import Grid from '@material-ui/core/Grid';
