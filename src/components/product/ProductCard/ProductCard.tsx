@@ -1,6 +1,6 @@
-import { Product } from 'shopify-buy';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Product } from '@/types';
 
 type Props = {
   product: Product;

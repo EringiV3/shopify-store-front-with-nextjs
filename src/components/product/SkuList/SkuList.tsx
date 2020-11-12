@@ -1,9 +1,9 @@
-import { Option, ProductVariant } from 'shopify-buy';
 import Image from 'next/image';
+import { Sku, Option } from '@/types';
 
 type Props = {
   colors: Option;
-  skuList: ProductVariant[];
+  skuList: Sku[];
 };
 
 const SkuList: React.FC<Props> = ({ colors, skuList }) => {
@@ -12,11 +12,10 @@ const SkuList: React.FC<Props> = ({ colors, skuList }) => {
     <>
       {colors.values.map((color) => {
         const skuListGroupedByColor = skuList.filter((sku) => {
-          // @ts-ignore
           const colorOption = sku.selectedOptions.find(
-            (option: any) => option.name === 'Color'
+            (option) => option.name === 'Color'
           );
-          return color.value === colorOption.value;
+          return color.value === colorOption?.value;
         });
         console.log({ skuListGroupedByColor });
         return (
@@ -24,8 +23,7 @@ const SkuList: React.FC<Props> = ({ colors, skuList }) => {
             <div>{color.value}</div>
             <Image
               src={skuListGroupedByColor[0].image.src}
-              // @ts-ignore
-              alt={skuListGroupedByColor[0].image.altText}
+              alt={skuListGroupedByColor[0].image.altText ?? ''}
               width={100}
               height={100}
             />

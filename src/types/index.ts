@@ -1,10 +1,24 @@
-// You can include shared interfaces/types in a separate file
-// and then use them in any component by importing them. For
-// example, to import the interface below do:
-//
-// import User from 'path/to/interfaces';
-
 export type User = {
   id: number;
   name: string;
 };
+
+import {
+  Option as SdkOption,
+  ProductVariant as SdkProductVariant,
+  Product as SdkProduct,
+} from 'shopify-buy';
+
+export type Sku = {
+  selectedOptions: Array<{
+    name: string;
+    value: string;
+  }>;
+  image: {
+    altText?: string | null;
+  };
+} & SdkProductVariant;
+
+export type Option = {} & SdkOption;
+
+export type Product = {} & SdkProduct;

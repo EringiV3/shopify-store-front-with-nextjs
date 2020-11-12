@@ -1,30 +1,15 @@
 import { GetServerSideProps } from 'next';
-import Layout from '@/components/Layout';
-import { Product } from 'shopify-buy';
-import { ProductCard } from '@/components/product';
+import { Product } from '@/types';
 import { useProducts } from '@/hooks/products/use-products';
-import Grid from '@material-ui/core/Grid';
+
+import { SearchResult } from '@/components/product';
 
 type Props = {
   products: Product[];
 };
 
 const ProductListPage: React.FC<Props> = ({ products }) => {
-  // console.log({ products });
-  return (
-    <>
-      <Layout title="商品一覧">
-        <h1>商品一覧</h1>
-        <Grid container spacing={1}>
-          {products.map((product) => (
-            <Grid item xs={6} lg={3}>
-              <ProductCard key={product.id} product={product} />
-            </Grid>
-          ))}
-        </Grid>
-      </Layout>
-    </>
-  );
+  return <SearchResult products={products} />;
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
