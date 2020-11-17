@@ -3,8 +3,6 @@ import Head from 'next/head';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
-import 'swiper/components/scrollbar/scrollbar.scss';
-import 'swiper/components/zoom/zoom.scss';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => (
   <>
