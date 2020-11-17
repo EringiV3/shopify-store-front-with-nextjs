@@ -1,8 +1,7 @@
 import Grid from '@material-ui/core/Grid';
 import { Layout } from '@/components/layout';
 import { Product, Sku } from '@/types';
-import Image from 'next/image';
-import { SkuList } from '@/components/product';
+import { SkuList, ProductImages } from '@/components/product';
 
 type Props = {
   product: Product;
@@ -17,24 +16,7 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
         <Grid container spacing={1}>
           <Grid item xs={12} lg={6}>
             left aria
-            <Image
-              src={product.images[0].src}
-              alt={product.title}
-              width={500}
-              height={500}
-            />
-            {product.images.map((image) => {
-              return (
-                <div key={image.id}>
-                  <Image
-                    src={image.src}
-                    alt={product.title}
-                    width={500}
-                    height={500}
-                  />
-                </div>
-              );
-            })}
+            <ProductImages product={product} />
           </Grid>
           <Grid item xs={12} lg={6}>
             right aria
