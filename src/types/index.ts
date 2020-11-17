@@ -1,8 +1,3 @@
-export type User = {
-  id: number;
-  name: string;
-};
-
 import {
   Option as SdkOption,
   ProductVariant as SdkProductVariant,

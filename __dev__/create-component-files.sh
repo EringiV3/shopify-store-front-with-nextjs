@@ -1,0 +1,1 @@
+# 引数にパスを受け取ってそのパス配下に{component}.tsx, index.ts, {component}.module.cssを作る
