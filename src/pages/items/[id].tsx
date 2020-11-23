@@ -27,7 +27,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const id = params?.id;
     if (!id) throw new Error('idが取得できません');
     const product = await client.product.fetch(id as string);
-    console.log({ product });
     return {
       props: { product: JSON.parse(JSON.stringify(product)) },
       revalidate: 1,

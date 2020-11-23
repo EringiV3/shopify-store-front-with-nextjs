@@ -15,11 +15,9 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
         <h1>商品詳細</h1>
         <Grid container spacing={1}>
           <Grid item xs={12} lg={6}>
-            left aria
             <ProductImages product={product} />
           </Grid>
           <Grid item xs={12} lg={6}>
-            right aria
             <div>
               <div>{product.vendor}</div>
               <div>{product.title}</div>
