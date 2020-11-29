@@ -5,7 +5,6 @@ import { Layout } from '@/components/layout';
 const CartTopPage: React.FC = () => {
   const { cart, fetchCart } = useCart(null);
   fetchCart();
-  if (!cart) return <div>loading...</div>;
   return (
     <Layout title="カートトップ">
       <h1>ショッピングカート</h1>

@@ -23,8 +23,9 @@ export const useCart = (originCart: Cart | null): useCartInterface => {
   const changeQuantity = (skuId: string, quantity: string): void => {
     if (!cart) return;
     client.checkout
+      // @ts-ignore
       .updateLineItems(cart.id, [{ id: skuId, quantity: parseInt(quantity) }])
-      .then((cart) => {
+      .then((cart: Cart) => {
         setCart(cart as Cart);
       });
   };
