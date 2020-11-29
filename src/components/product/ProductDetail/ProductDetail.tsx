@@ -2,6 +2,7 @@ import Grid from '@material-ui/core/Grid';
 import { Layout } from '@/components/layout';
 import { Product, Sku } from '@/types';
 import { SkuList, ProductImages } from '@/components/product';
+import styles from './ProductDetail.module.css';
 
 type Props = {
   product: Product;
@@ -19,13 +20,15 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
           </Grid>
           <Grid item xs={12} lg={6}>
             <div>
-              <div>{product.vendor}</div>
+              <div>Brand: {product.vendor}</div>
               <div>{product.title}</div>
-              <div>{product.variants[0].price}</div>
+              <div>Price: ${product.variants[0].price}</div>
             </div>
-            {colors && (
-              <SkuList colors={colors} skuList={product.variants as Sku[]} />
-            )}
+            <div className={styles.skuList}>
+              {colors && (
+                <SkuList colors={colors} skuList={product.variants as Sku[]} />
+              )}
+            </div>
             <div>
               商品情報
               <br />
