@@ -1,10 +1,12 @@
 import Image from 'next/image';
 import { Sku, Option } from '@/types';
-import { client } from '@/shopify/client';
-import { getCheckoutId } from '@/utils/helpers';
 import styles from './SkuList.module.css';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { useCart } from '@/hooks/cart/useCart';
+import Snackbar, { SnackbarOrigin } from '@material-ui/core/Snackbar';
+import { useState } from 'react';
+import MuiAlert from '@material-ui/lab/Alert';
 
 type Props = {
   colors: Option;
@@ -12,13 +14,23 @@ type Props = {
 };
 
 const SkuList: React.FC<Props> = ({ colors, skuList }) => {
-  const onClick = (skuId: string | number) => {
-    client.checkout.addLineItems(getCheckoutId(), [
-      {
-        variantId: skuId,
-        quantity: 1,
-      },
-    ]);
+  type ToastState = {
+    open: boolean;
+  } & SnackbarOrigin;
+  const [toastState, setToastState] = useState<ToastState>({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
+  const { vertical, horizontal, open } = toastState;
+  const handleClose = () => {
+    setToastState({ ...toastState, open: false });
+  };
+
+  const { addToCart } = useCart(null);
+  const showToastAfterAddToCart = async (skuId: string | number) => {
+    await addToCart(skuId);
+    setToastState({ ...toastState, open: true });
   };
   return (
     <>
@@ -57,7 +69,7 @@ const SkuList: React.FC<Props> = ({ colors, skuList }) => {
                         <Button
                           variant="contained"
                           color="primary"
-                          onClick={() => onClick(sku.id)}
+                          onClick={() => showToastAfterAddToCart(sku.id)}
                         >
                           カートに入れる
                         </Button>
@@ -70,6 +82,17 @@ const SkuList: React.FC<Props> = ({ colors, skuList }) => {
           </div>
         );
       })}
+      <Snackbar
+        autoHideDuration={2000}
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleClose}
+        key={vertical + horizontal}
+      >
+        <MuiAlert elevation={6} variant="filled" severity="success">
+          カートに商品が追加されました
+        </MuiAlert>
+      </Snackbar>
     </>
   );
 };
