@@ -2,6 +2,7 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import { client } from '@/shopify/client';
 import { ProductDetail } from '@/components/product';
 import { Product } from '@/types';
+import { Layout } from '@/components/layout';
 
 type Props = {
   product: Product;
@@ -12,7 +13,11 @@ const ProductDetailPage: React.FC<Props> = ({ product, errors }) => {
   console.log({ product });
   if (!product) return <div>loading...</div>;
   if (errors) return <div>error</div>;
-  return <ProductDetail product={product} />;
+  return (
+    <Layout title={product.title}>
+      <ProductDetail product={product} />
+    </Layout>
+  );
 };
 
 export default ProductDetailPage;

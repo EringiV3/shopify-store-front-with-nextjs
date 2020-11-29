@@ -5,11 +5,13 @@ import {
   Cart as SdkCart,
 } from 'shopify-buy';
 
+export type SelectedOption = {
+  name: string;
+  value: string;
+};
+
 export type Sku = {
-  selectedOptions: Array<{
-    name: string;
-    value: string;
-  }>;
+  selectedOptions: SelectedOption[];
   image: {
     altText?: string | null;
   };
@@ -19,4 +21,14 @@ export type Option = {} & SdkOption;
 
 export type Product = {} & SdkProduct;
 
-export type Cart = {} & SdkCart;
+type lineItem = {
+  id: string;
+  title: string;
+  quantity: number;
+  variant: Sku;
+};
+
+export type Cart = {
+  lineItems: lineItem[];
+  webUrl: string;
+} & SdkCart;

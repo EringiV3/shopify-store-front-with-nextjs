@@ -7,7 +7,9 @@ import { CartProducts } from '@/components/cart';
 const CartTopPage: React.FC = () => {
   const [cart, setCart] = useState<null | Cart>(null);
   useEffect(() => {
-    client.checkout.fetch(getCheckoutId()).then((cart) => setCart(cart));
+    client.checkout
+      .fetch(getCheckoutId())
+      .then((cart) => setCart(cart as Cart));
   }, []);
   return cart ? <CartProducts cart={cart} /> : <div>loading...</div>;
 };

@@ -1,5 +1,4 @@
 import { AppProps } from 'next/app';
-import Head from 'next/head';
 import { useEffect } from 'react';
 import { client } from '@/shopify/client';
 import { getCheckoutId, setCheckoutId } from '@/utils/helpers';
@@ -18,14 +17,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <>
-      <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
-        {/* <link rel="shortcut icon" href="/favicon.png" key="shortcutIcon" /> */}
-        {/* <link rel="manifest" href="/manifest.json" /> */}
-      </Head>
       <Component {...pageProps} />
     </>
   );

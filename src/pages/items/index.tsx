@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { Product } from '@/types';
 import { useProducts } from '@/hooks/products/use-products';
-
+import { Layout } from '@/components/layout';
 import { SearchResult } from '@/components/product';
 
 type Props = {
@@ -9,7 +9,11 @@ type Props = {
 };
 
 const ProductListPage: React.FC<Props> = ({ products }) => {
-  return <SearchResult products={products} />;
+  return (
+    <Layout title="商品一覧">
+      <SearchResult products={products} />
+    </Layout>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
