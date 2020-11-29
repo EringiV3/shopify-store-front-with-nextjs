@@ -2,6 +2,7 @@ import {
   Option as SdkOption,
   ProductVariant as SdkProductVariant,
   Product as SdkProduct,
+  Cart as SdkCart,
 } from 'shopify-buy';
 
 export type Sku = {
@@ -17,3 +18,5 @@ export type Sku = {
 export type Option = {} & SdkOption;
 
 export type Product = {} & SdkProduct;
+
+export type Cart = {} & SdkCart;
