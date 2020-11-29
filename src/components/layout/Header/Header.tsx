@@ -9,7 +9,11 @@ const Header: React.FC = () => (
       |{' '}
       <Link href="/items">
         <a>Items</a>
-      </Link>{' '}
+      </Link>
+      |{' '}
+      <Link href="/cart">
+        <a>Cart</a>
+      </Link>
     </nav>
   </header>
 );

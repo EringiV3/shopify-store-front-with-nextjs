@@ -1,3 +1,5 @@
+import { SelectedOption } from '@/types';
+
 export function hello() {
   return 'hello';
 }
@@ -14,4 +16,16 @@ export function getCheckoutId(): string {
  */
 export function setCheckoutId(checkoutId: string | number) {
   localStorage.setItem('checkoutId', String(checkoutId));
+}
+
+/**
+ * optionsからnameの一致するvalueを取得します
+ * @param options
+ * @param name
+ */
+export function getValueByMatchedNameSelectedOptions(
+  options: SelectedOption[],
+  name: string
+): string {
+  return options.find((option) => option.name === name)?.value ?? '';
 }

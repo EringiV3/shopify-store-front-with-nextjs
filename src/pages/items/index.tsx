@@ -1,8 +1,8 @@
 import { GetServerSideProps } from 'next';
 import { Product } from '@/types';
-import { useProducts } from '@/hooks/products/use-products';
 import { Layout } from '@/components/layout';
 import { SearchResult } from '@/components/product';
+import { client } from '@/shopify/client';
 
 type Props = {
   products: Product[];
@@ -17,7 +17,7 @@ const ProductListPage: React.FC<Props> = ({ products }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const products: Product[] = await useProducts();
+  const products: Product[] = await client.product.fetchAll();
   return {
     props: {
       // SerializableErrorの回避のため

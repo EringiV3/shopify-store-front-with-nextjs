@@ -34,7 +34,6 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
           </div>
         </Grid>
       </Grid>
-      <div>product page</div>
     </>
   );
 };

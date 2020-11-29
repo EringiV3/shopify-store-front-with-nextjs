@@ -10,7 +10,6 @@ type Props = {
 };
 
 const ProductDetailPage: React.FC<Props> = ({ product, errors }) => {
-  console.log({ product });
   if (!product) return <div>loading...</div>;
   if (errors) return <div>error</div>;
   return (

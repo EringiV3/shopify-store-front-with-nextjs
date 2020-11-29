@@ -1,10 +1,9 @@
 import Image from 'next/image';
 import { Sku, Option } from '@/types';
-import { client } from '@/shopify/client';
-import { getCheckoutId } from '@/utils/helpers';
 import styles from './SkuList.module.css';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { useCart } from '@/hooks/cart/useCart';
 
 type Props = {
   colors: Option;
@@ -12,14 +11,7 @@ type Props = {
 };
 
 const SkuList: React.FC<Props> = ({ colors, skuList }) => {
-  const onClick = (skuId: string | number) => {
-    client.checkout.addLineItems(getCheckoutId(), [
-      {
-        variantId: skuId,
-        quantity: 1,
-      },
-    ]);
-  };
+  const { addToCart } = useCart(null);
   return (
     <>
       {colors.values.map((color) => {
@@ -57,7 +49,7 @@ const SkuList: React.FC<Props> = ({ colors, skuList }) => {
                         <Button
                           variant="contained"
                           color="primary"
-                          onClick={() => onClick(sku.id)}
+                          onClick={() => addToCart(sku.id)}
                         >
                           カートに入れる
                         </Button>

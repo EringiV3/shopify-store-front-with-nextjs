@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react';
-import { getCheckoutId } from '@/utils/helpers';
-import { client } from '@/shopify/client';
-import { Cart } from '@/types';
 import { CartProducts } from '@/components/cart';
+import { useCart } from '@/hooks/cart/useCart';
+import { Layout } from '@/components/layout';
 
 const CartTopPage: React.FC = () => {
-  const [cart, setCart] = useState<null | Cart>(null);
-  useEffect(() => {
-    client.checkout
-      .fetch(getCheckoutId())
-      .then((cart) => setCart(cart as Cart));
-  }, []);
-  return cart ? <CartProducts cart={cart} /> : <div>loading...</div>;
+  const { cart, fetchCart } = useCart(null);
+  fetchCart();
+  if (!cart) return <div>loading...</div>;
+  return (
+    <Layout title="カートトップ">
+      <h1>ショッピングカート</h1>
+      {cart === null ? <div>loading...</div> : <CartProducts cart={cart} />}
+    </Layout>
+  );
 };
 
 export default CartTopPage;
