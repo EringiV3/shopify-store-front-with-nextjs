@@ -1,6 +1,8 @@
 # Next.js with TypeScript Template
 
-Next.js を TypeScript で使うために必要そうなパッケージを一通りいれたテンプレート。
+Shopify の js-buy-sdk を使用して作った EC フロント。
+Next.js を使用しています。
+https://shopify-store-front-with-nextjs-jjx3prsx7.vercel.app/
 
 ## how to use
 
