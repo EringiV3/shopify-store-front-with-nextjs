@@ -7,7 +7,7 @@ type useCartInterface = {
   cart: Cart | null;
   changeQuantity: (skuId: string, quantity: string) => void;
   removeProduct: (productId: string) => void;
-  addToCart: (skuId: string | number) => void;
+  addToCart: (skuId: string | number) => Promise<Cart>;
   fetchCart: () => void;
   initializeCart: () => void;
 };
@@ -44,13 +44,13 @@ export const useCart = (originCart: Cart | null): useCartInterface => {
    * カートに商品を追加する
    * @param skuId
    */
-  const addToCart = (skuId: string | number): void => {
-    client.checkout.addLineItems(getCheckoutId(), [
+  const addToCart = (skuId: string | number): Promise<Cart> => {
+    return client.checkout.addLineItems(getCheckoutId(), [
       {
         variantId: skuId,
         quantity: 1,
       },
-    ]);
+    ]) as Promise<Cart>;
   };
 
   /**

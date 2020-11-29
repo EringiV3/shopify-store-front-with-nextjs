@@ -2,9 +2,10 @@ import Grid from '@material-ui/core/Grid';
 import Image from 'next/image';
 import { Cart } from '@/types';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
+import MuiLink from '@material-ui/core/Link';
 import { useCart } from '@/hooks/cart/useCart';
 import { getValueByMatchedNameSelectedOptions } from '@/utils/helpers';
+import Link from 'next/link';
 
 type Props = {
   cart: Cart;
@@ -12,6 +13,7 @@ type Props = {
 
 const CartProducts: React.FC<Props> = (props) => {
   const { cart, changeQuantity, removeProduct } = useCart(props.cart);
+  console.log({ cart });
   return (
     cart && (
       <>
@@ -32,21 +34,25 @@ const CartProducts: React.FC<Props> = (props) => {
                       />
                     </Grid>
                     <Grid item xs={4}>
-                      <div>商品名: {product.title}</div>
-                      <div>
-                        カラー:{' '}
-                        {getValueByMatchedNameSelectedOptions(
-                          product.variant.selectedOptions,
-                          'Color'
-                        )}
-                      </div>
-                      <div>
-                        サイズ:{' '}
-                        {getValueByMatchedNameSelectedOptions(
-                          product.variant.selectedOptions,
-                          'Size'
-                        )}
-                      </div>
+                      <Link href={`items/${product.variant.product.id}`}>
+                        <MuiLink color="inherit">
+                          <div>商品名: {product.title}</div>
+                          <div>
+                            カラー:{' '}
+                            {getValueByMatchedNameSelectedOptions(
+                              product.variant.selectedOptions,
+                              'Color'
+                            )}
+                          </div>
+                          <div>
+                            サイズ:{' '}
+                            {getValueByMatchedNameSelectedOptions(
+                              product.variant.selectedOptions,
+                              'Size'
+                            )}
+                          </div>
+                        </MuiLink>
+                      </Link>
                     </Grid>
                     <Grid item xs={3}>
                       <span>
@@ -69,13 +75,13 @@ const CartProducts: React.FC<Props> = (props) => {
                       </select>
                     </Grid>
                     <Grid item xs={2}>
-                      <Link
+                      <MuiLink
                         component="button"
                         variant="body2"
                         onClick={() => removeProduct(product.id)}
                       >
                         削除
-                      </Link>
+                      </MuiLink>
                     </Grid>
                   </Grid>
                 ))}

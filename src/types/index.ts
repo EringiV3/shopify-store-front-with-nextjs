@@ -15,6 +15,9 @@ export type Sku = {
   image: {
     altText?: string | null;
   };
+  product: {
+    id: string;
+  };
 } & SdkProductVariant;
 
 export type Option = {} & SdkOption;
