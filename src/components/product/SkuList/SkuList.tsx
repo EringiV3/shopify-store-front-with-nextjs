@@ -27,7 +27,7 @@ const SkuList: React.FC<Props> = ({ colors, skuList }) => {
     setToastState({ ...toastState, open: false });
   };
 
-  const { addToCart } = useCart(null);
+  const { addToCart } = useCart();
   const showToastAfterAddToCart = async (skuId: string | number) => {
     await addToCart(skuId);
     setToastState({ ...toastState, open: true });
