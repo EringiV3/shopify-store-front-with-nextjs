@@ -1,18 +1,13 @@
 import Grid from '@material-ui/core/Grid';
 import Image from 'next/image';
-import { Cart } from '@/types';
 import Button from '@material-ui/core/Button';
 import MuiLink from '@material-ui/core/Link';
 import { useCart } from '@/hooks/cart/useCart';
 import { getValueByMatchedNameSelectedOptions } from '@/utils/helpers';
 import Link from 'next/link';
 
-type Props = {
-  cart: Cart;
-};
-
-const CartProducts: React.FC<Props> = (props) => {
-  const { cart, changeQuantity, removeProduct } = useCart(props.cart);
+const CartProducts: React.FC = () => {
+  const { cart, changeQuantity, removeProduct } = useCart();
   console.log({ cart });
   return (
     cart && (

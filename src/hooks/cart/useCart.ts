@@ -1,19 +1,51 @@
 import { Cart } from '@/types';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { client } from '@/shopify/client';
 import { getCheckoutId, setCheckoutId } from '@/utils/helpers';
+import { atom, useRecoilState, selector, useRecoilValue } from 'recoil';
 
 type useCartInterface = {
   cart: Cart | null;
+  cartItemQuantity: number;
   changeQuantity: (skuId: string, quantity: string) => void;
   removeProduct: (productId: string) => void;
-  addToCart: (skuId: string | number) => Promise<Cart>;
+  addToCart: (skuId: string | number) => Promise<void>;
   fetchCart: () => void;
-  initializeCart: () => void;
 };
 
-export const useCart = (originCart: Cart | null): useCartInterface => {
-  const [cart, setCart] = useState<Cart | null>(originCart);
+const cartState = atom<Cart | null>({
+  key: 'cartState',
+  default: null,
+});
+
+const cartItemQuantityState = selector({
+  key: 'cartItemQuantityState',
+  get: ({ get }) =>
+    get(cartState)?.lineItems.reduce(
+      (accumulator, currentValue) => accumulator + currentValue.quantity,
+      0
+    ) ?? 0,
+});
+
+export const useCart = (): useCartInterface => {
+  const [cart, setCart] = useRecoilState(cartState);
+  const cartItemQuantity = useRecoilValue(cartItemQuantityState);
+
+  /**
+   * カートを初期化します
+   */
+  const initializeCart = () => {
+    useEffect(() => {
+      const checkoutId = getCheckoutId();
+      if (checkoutId) return;
+      client.checkout.create().then((cart) => {
+        setCart(cart as Cart);
+        setCheckoutId(cart.id);
+      });
+    }, []);
+  };
+
+  initializeCart();
 
   /**
    * カート内の商品の数量をquantityに変更します
@@ -45,13 +77,15 @@ export const useCart = (originCart: Cart | null): useCartInterface => {
    * カートに商品を追加する
    * @param skuId
    */
-  const addToCart = (skuId: string | number): Promise<Cart> => {
-    return client.checkout.addLineItems(getCheckoutId(), [
-      {
-        variantId: skuId,
-        quantity: 1,
-      },
-    ]) as Promise<Cart>;
+  const addToCart = (skuId: string | number): Promise<void> => {
+    return client.checkout
+      .addLineItems(getCheckoutId(), [
+        {
+          variantId: skuId,
+          quantity: 1,
+        },
+      ])
+      .then((cart) => setCart(cart as Cart));
   };
 
   /**
@@ -65,25 +99,12 @@ export const useCart = (originCart: Cart | null): useCartInterface => {
     }, []);
   };
 
-  /**
-   * カートを初期化します
-   */
-  const initializeCart = () => {
-    useEffect(() => {
-      const checkoutId = getCheckoutId();
-      if (checkoutId) return;
-      client.checkout.create().then((cart) => {
-        setCheckoutId(cart.id);
-      });
-    }, []);
-  };
-
   return {
     cart,
+    cartItemQuantity,
     changeQuantity,
     removeProduct,
     addToCart,
     fetchCart,
-    initializeCart,
   };
 };
