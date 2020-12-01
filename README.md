@@ -1,8 +1,8 @@
 # Next.js with TypeScript Template
 
 Shopify の js-buy-sdk を使用して作った EC フロント。
-Next.js を使用しています。
-https://shopify-store-front-with-nextjs-jjx3prsx7.vercel.app/
+Next.js を使用しています。  
+https://eringiv3-shopify-store-front-with-nextjs.vercel.app/
 
 ## how to use
 
