@@ -3,6 +3,7 @@ import { Product } from '@/types';
 import { Layout } from '@/components/layout';
 import { SearchResult } from '@/components/product';
 import { client } from '@/shopify/client';
+import { NextSeo } from 'next-seo';
 
 type Props = {
   products: Product[];
@@ -10,9 +11,17 @@ type Props = {
 
 const ProductListPage: React.FC<Props> = ({ products }) => {
   return (
-    <Layout title="商品一覧">
-      <SearchResult products={products} />
-    </Layout>
+    <>
+      <NextSeo
+        title="商品一覧"
+        description="商品一覧ページです。"
+        noindex={true}
+        nofollow={true}
+      />
+      <Layout>
+        <SearchResult products={products} />
+      </Layout>
+    </>
   );
 };
 
