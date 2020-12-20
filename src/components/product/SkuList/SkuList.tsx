@@ -71,7 +71,7 @@ const SkuList: React.FC<Props> = ({ colors, skuList }) => {
                           color="primary"
                           onClick={() => showToastAfterAddToCart(sku.id)}
                         >
-                          カートに入れる
+                          <span data-test-id="add-to-cart">カートに入れる</span>
                         </Button>
                       </Grid>
                     </Grid>

@@ -18,7 +18,11 @@ const Header: React.FC = () => {
 
           <Link href={'/cart'}>
             <Button color="inherit">
-              Cart(item quantity: {cartItemQuantity})
+              Cart(item quantity:
+              <span data-test-id="header-cart-item-quantity">
+                {cartItemQuantity}
+              </span>
+              )
             </Button>
           </Link>
         </Toolbar>
