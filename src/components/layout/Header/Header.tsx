@@ -6,7 +6,8 @@ import Button from '@material-ui/core/Button';
 import { useCart } from '@/hooks/cart/useCart';
 
 const Header: React.FC = () => {
-  const { cartItemQuantity } = useCart();
+  const { cartItemQuantity, fetchCart } = useCart();
+  fetchCart();
   return (
     <header>
       <AppBar position="static">
